@@ -18,9 +18,11 @@ const FabricCanvas = ({ setFabricCanvas }) => {
 
   useEffect(() => {
     if (canvasRef.current) {
-      const fabricCanvas = new fabric.Canvas(canvasRef.current, { backgroundColor: 'cyan' });
-      fabricCanvas.add(new fabric.Rect({ width: 300, height: 40 }))
+      const fabricCanvas = new fabric.Canvas(canvasRef.current);
+      const testQrCode = new fabric.Qrcode({ text: 'Here comes the qrcode', size: 512 });
+      fabricCanvas.add(testQrCode);
       setFabricCanvas(fabricCanvas);
+      window.fabricCanvas = fabricCanvas;
     }
   }, [setFabricCanvas]);
 

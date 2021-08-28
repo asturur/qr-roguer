@@ -8,6 +8,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import FabricCanvas from './FabricCanvas';
 import { FabricContext } from './fabricContext';
+import Controls from './Controls';
+import Qrcode from './fabricQrCode';
+// https://www.npmjs.com/package/qr-code-styling
+// npmjs.com/package/qr-creator
 
 const drawerWidth = 240;
 
@@ -30,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    padding: theme.spacing(1),
   },
   drawerHeader: {
     display: 'flex',
@@ -80,7 +85,7 @@ export default function PersistentDrawerLeft() {
             paper: classes.drawerPaper,
           }}
         >
-          Controls
+          <Controls />
         </Drawer>
         <main
           className={classes.content}
