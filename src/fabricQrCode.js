@@ -1,5 +1,32 @@
-import QrCreator from 'qr-creator';
+import QRCodeStyling from 'qr-code-styling';
 import { fabric } from 'fabric';
+
+const mapDataToOptions = ({
+  size = 512,
+  fill = 'black',
+  dotsStyle = 'rounded',
+  innerLogo = '',
+  backgroundColor = 'transparent',
+  logoMargin = 20,
+  data = 'qrcode',
+}) => ({
+  type: 'canvas',
+  width: size,
+  height: size,
+  dotsOptions: {
+    color: fill,
+    type: dotsStyle,
+  },
+  data: data,
+  image: innerLogo,
+  backgroundOptions: {
+    color: backgroundColor,
+  },
+  imageOptions: {
+    crossOrigin: "anonymous",
+    margin: logoMargin
+  }
+})
 
 const Qrcode = fabric.util.createClass(fabric.Image, {
   type: 'qrcode',
@@ -11,23 +38,28 @@ const Qrcode = fabric.util.createClass(fabric.Image, {
   noScaleCache: false,
   originX: 'center',
   originY: 'center',
+  logoMargin: 20,
+  // style of qrcode dots
+  dotsStyle: 'rounded',
+  // image at the center of the qrcode
+  innerLogo: '',
+  data: 'qrcode',
 
   initialize(options) {
-    const element = fabric.util.createCanvasElement();
-    this.callSuper('initialize', element, options);
-    this.width = options.size;
-    this.height = options.size;
+    this.callSuper('initialize', null, options);
+    this.qr = new QRCodeStyling(mapDataToOptions(this));
+    this.setElement(this.qr._canvas);
+    this.qr._canvasDrawingPromise.then(() => {
+      this.canvas && this.canvas.requestRenderAll();
+    });
   },
 
-  _render(ctx) {
-    this.qr = QrCreator.render({
-      size: this.size,
-      text: this.text,
-      fill: 'red',
-      background: this.backgroundColor,
-    }, this._originalElement);
-    fabric.Image.prototype._render.call(this, ctx);
-  }
+  update() {
+    this.qr.update(mapDataToOptions(this));
+    return this.qr._canvasDrawingPromise.then(() => {
+      this.setElement(this.qr._canvas);
+    });
+  },
 });
 
 Qrcode.fromObject = function (_object, callback) {

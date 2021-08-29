@@ -19,7 +19,11 @@ const FabricCanvas = ({ setFabricCanvas }) => {
   useEffect(() => {
     if (canvasRef.current) {
       const fabricCanvas = new fabric.Canvas(canvasRef.current);
-      const testQrCode = new fabric.Qrcode({ text: 'Here comes the qrcode', size: 512 });
+      const testQrCode = new fabric.Qrcode({
+        data: 'Here comes the qrcode',
+        size: 512,
+        innerLogo: "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
+      });
       fabricCanvas.add(testQrCode);
       setFabricCanvas(fabricCanvas);
       window.fabricCanvas = fabricCanvas;

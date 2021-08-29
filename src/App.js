@@ -61,7 +61,6 @@ const useStyles = makeStyles((theme) => ({
 export default function PersistentDrawerLeft() {
   const classes = useStyles();
   const [fabriCanvas, setFabricCanvas] = useState(null);
-
   return (
     <FabricContext.Provider value={fabriCanvas} >
       <div className={classes.root}>
