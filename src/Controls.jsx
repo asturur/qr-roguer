@@ -33,7 +33,7 @@ const Controls = () => {
   return <>
     <List>
     <ListItem>
-      <TextField inputRef={currentText} label={t('Enter a url')}  initialValue={data} variant="outlined" onChange={({ target }) => genericSetter({ data: target.value })} />
+      <TextField inputRef={currentText} label={t('Enter a url')} value={data} variant="outlined" onChange={({ target }) => genericSetter({ data: target.value })} />
       <IconButton>
         <Add onClick={createNew} />
       </IconButton>
