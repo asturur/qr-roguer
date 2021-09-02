@@ -46,6 +46,20 @@ const Controls = () => {
             property="backgroundColor"
           />
         </ListItem>
+        <ListItem>
+          <ColorChanger
+            color={activeObject.qrCornerColor}
+            label={t('outer corner')}
+            property="qrCornerColor"
+          />
+        </ListItem>
+        <ListItem>
+          <ColorChanger
+            color={activeObject.qrCornerInnerColor}
+            label={t('inner corner')}
+            property="qrCornerInnerColor"
+          />
+        </ListItem>
       </>
     )}
     </List>

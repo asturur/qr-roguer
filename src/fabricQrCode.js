@@ -9,6 +9,12 @@ const mapDataToOptions = ({
   backgroundColor = 'transparent',
   logoMargin = 20,
   data = 'qrcode',
+  qrCornerColor = 'black',
+  cornerGradient,
+  qrCornerType = '',
+  qrCornerInnerColor = 'black',
+  cornerInnerGradient,
+  qrCornerInnerType = 'square',
 }) => ({
   type: 'canvas',
   width: size,
@@ -21,6 +27,16 @@ const mapDataToOptions = ({
   image: innerLogo,
   backgroundOptions: {
     color: backgroundColor,
+  },
+  cornersSquareOptions: {
+    color: qrCornerColor,
+    gradient: cornerGradient,
+    type: qrCornerType,
+  },
+  cornersDotOptions: {
+    color: qrCornerInnerColor,
+    gradient: cornerInnerGradient,
+    type: qrCornerInnerType,
   },
   imageOptions: {
     crossOrigin: "anonymous",
@@ -44,6 +60,13 @@ const Qrcode = fabric.util.createClass(fabric.Image, {
   // image at the center of the qrcode
   innerLogo: '',
   data: 'qrcode',
+  // can be 'dot' 'square' 'extra-rounded'
+  qrCornerType: 'square',
+  qrCornerColor: 'black',
+  qrCornerInnerColor: 'black',
+  // can be 'dot' 'square'
+  qrCornerInnerType: 'square',
+
 
   initialize(options) {
     this.callSuper('initialize', null, options);
