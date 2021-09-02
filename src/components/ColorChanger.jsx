@@ -1,8 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, memo } from 'react';
 import Popover from '@material-ui/core/Popover';
 import ListItemText from '@material-ui/core/ListItemText';
 import { ChromePicker } from 'react-color'
-import useGenericSetter from './hooks/useGenericSetter';
+import useGenericSetter from '../hooks/useGenericSetter';
 import { makeStyles } from '@material-ui/core/styles';
 import { IconButton } from '@material-ui/core';
 
@@ -47,4 +47,4 @@ const ColorChanger = ({ color, label, property }) => {
   )
 }
 
-export default ColorChanger;
+export default memo(ColorChanger);
