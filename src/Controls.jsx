@@ -5,39 +5,49 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import IconButton from '@material-ui/core/IconButton';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import useGenericSetter from './hooks/useGenericSetter';
+import ColorChanger from './ColorChanger';
 import { Add } from '@material-ui/icons';
 import { useFabricContext, useActiveObjectsContext, ActiveObjectsContext } from './fabricContext';
-import { ChromePicker } from 'react-color'
-import useGenericSetter from './hooks/useGenericSetter';
 import { fabric } from 'fabric';
+import { useTranslations } from './hooks/useTranslations';
 
 const Controls = () => {
   const fabricCanvas = useFabricContext();
   const currentText = useRef();
   const activeObject = useActiveObjectsContext()[0];
+  const genericSetter = useGenericSetter();
+  const { t } = useTranslations();
   const createNew = useCallback(() => {
     fabricCanvas.add(new fabric.Qrcode({ data: currentText.current.value || 'test data' }));
   }, [fabricCanvas]);
-  // the plan of this is to connect react and fabricJS in a reactive way
-  const genericSetter = useGenericSetter();
-  const fillColor = activeObject?.fill;
   const data = activeObject?.data;
   return <>
     <List>
     <ListItem>
-      <TextField inputRef={currentText} label="Enter a url" variant="outlined" onChange={({ target }) => genericSetter({ data: target.value })} />
+      <TextField inputRef={currentText} label={t('Enter a url')} variant="outlined" onChange={({ target }) => genericSetter({ data: target.value })} />
       <IconButton>
         <Add onClick={createNew} />
       </IconButton>
     </ListItem>
-    <ListItem>
-      <ListItemText>Dots color</ListItemText>
-      <ChromePicker
-        color={fillColor}
-        onChange={({ hex }) => genericSetter({ 'fill': hex })}
-      />
-    </ListItem>
+    {activeObject && (
+      <>
+        <ListItem>
+          <ColorChanger
+            color={activeObject.fill}
+            label={t('dots color')}
+            property="fill"
+          />
+        </ListItem>
+        <ListItem>
+          <ColorChanger
+            color={activeObject.backgroundColor}
+            label={t('background')}
+            property="backgroundColor"
+          />
+        </ListItem>
+      </>
+    )}
     </List>
   </>
 };
