@@ -15,6 +15,8 @@ import { useTranslations } from './hooks/useTranslations';
 
 const qrCornerTypes = ['dot', 'square', 'extra-rounded'];
 const qrCornerInnerTypes = ['dot', 'square'];
+const qrDotsStyles = ['rounded', 'dots', 'classy', 'classy-rounded', 'square', 'extra-rounded'];
+
 const Controls = () => {
   const fabricCanvas = useFabricContext();
   const currentText = useRef();
@@ -40,6 +42,14 @@ const Controls = () => {
     </ListItem>
     {activeObject && (
       <>
+        <ListItem>
+          <SelectChanger
+            label={t('Dots style')}
+            property="qrDotsStyle"
+            options={qrDotsStyles}
+            value={activeObject.qrDotsStyle}
+          />
+        </ListItem>
         <ListItem>
           <ColorChanger
             color={activeObject.fill}

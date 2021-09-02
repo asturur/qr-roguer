@@ -4,7 +4,7 @@ import { fabric } from 'fabric';
 const mapDataToOptions = ({
   size = 512,
   fill = 'black',
-  dotsStyle = 'rounded',
+  qrDotsStyle = 'rounded',
   innerLogo = '',
   backgroundColor = 'transparent',
   logoMargin = 20,
@@ -21,7 +21,7 @@ const mapDataToOptions = ({
   height: size,
   dotsOptions: {
     color: fill,
-    type: dotsStyle,
+    type: qrDotsStyle,
   },
   data: data,
   image: innerLogo,
@@ -55,8 +55,8 @@ const Qrcode = fabric.util.createClass(fabric.Image, {
   originX: 'center',
   originY: 'center',
   logoMargin: 20,
-  // style of qrcode dots
-  dotsStyle: 'rounded',
+  // style of qrcode dots can be 'rounded' 'dots' 'classy' 'classy-rounded' 'square' 'extra-rounded'
+  qrDotsStyle: 'rounded',
   // image at the center of the qrcode
   innerLogo: '',
   data: 'qrcode',
